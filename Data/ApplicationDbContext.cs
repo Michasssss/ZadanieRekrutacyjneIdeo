@@ -14,6 +14,6 @@ namespace ZadanieRekrutacyjneIdeo.Data
         {
         }
 
-        DbSet<TreeNode> TreeNodes { get; set; }
+        public DbSet<TreeNode> TreeNodes { get; set; }
     }
 }

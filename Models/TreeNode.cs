@@ -14,7 +14,7 @@ namespace ZadanieRekrutacyjneIdeo.Models
         public int ID { get; set; }
 
         [Display(Name = "Name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "ParentID")]
         public int? PID { get; set; }

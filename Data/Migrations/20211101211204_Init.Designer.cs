@@ -10,7 +10,7 @@ using ZadanieRekrutacyjneIdeo.Data;
 namespace ZadanieRekrutacyjneIdeo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211101203057_Init")]
+    [Migration("20211101211204_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,8 +228,8 @@ namespace ZadanieRekrutacyjneIdeo.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PID")
                         .HasColumnType("int");

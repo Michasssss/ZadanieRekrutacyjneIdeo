@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZadanieRekrutacyjneIdeo.Data;
+using ZadanieRekrutacyjneIdeo.Repositories;
 
 namespace ZadanieRekrutacyjneIdeo
 {
@@ -35,6 +36,8 @@ namespace ZadanieRekrutacyjneIdeo
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddScoped<ITreeNodesRepository, TreeNodesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +66,7 @@ namespace ZadanieRekrutacyjneIdeo
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=TreeNodes}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
