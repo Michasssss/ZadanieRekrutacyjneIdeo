@@ -22,7 +22,7 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
         /// </summary>
         public async Task<List<TreeNode>> GetAllNodes()
         {
-            var applicationDbContext = _context.TreeNodes.Include(t => t.Parent);
+            var applicationDbContext = _context.TreeNodes.Include(t => t.Childs);
             return await applicationDbContext.ToListAsync();
         }
 
@@ -162,7 +162,25 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
         public async Task LoadData()
         {
             await _context.Database.ExecuteSqlInterpolatedAsync(
-            $"DBCC CHECKIDENT(TreeNodes, RESEED, 0); SET IDENTITY_INSERT TreeNodes ON; INSERT INTO TreeNodes(Id, Name, PID)VALUES(1, 'root', null),(2, 'Windows', 1),(3, 'Linux', 1),(4, 'MacOS', 1),(5, 'Office', 2),(6, 'InternetExplorer', 2),(7, 'Iceweasel', 3),(8, 'Word', 5),(9, 'Excel', 5),(10, 'PowerPoint', 5);");
+            $"DBCC CHECKIDENT(TreeNodes, RESEED, 0); SET IDENTITY_INSERT TreeNodes ON; INSERT INTO TreeNodes(Id, Name, PID)VALUES(1, 'root', null),(2, 'Windows', 1),(3, 'Linux', 1),(4, 'MacOS', 3),(5, 'Office', 2),(6, 'InternetExplorer', 2),(7, 'Iceweasel', 3),(8, 'Word', 5),(9, 'Excel', 5),(10, 'PowerPoint', 5);");
         }
+
+        public async Task<List<TreeNode>> GetAllSortedByName()
+        {
+            List<TreeNode> list =  _context.TreeNodes.Include(t => t.Childs).AsEnumerable().Where(t=> t.PID == null).ToList();
+            await sortChildren(list.FirstOrDefault());
+            return list;
+        }
+
+        async Task sortChildren(TreeNode node)
+        {
+            node.Childs = node.Childs.OrderBy(n => n.Name).ToList();
+            foreach (var child in node.Childs)
+            {
+                await sortChildren(child);
+            }
+        }
+
+
     }
 }

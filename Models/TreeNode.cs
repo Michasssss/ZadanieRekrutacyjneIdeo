@@ -21,7 +21,7 @@ namespace ZadanieRekrutacyjneIdeo.Models
         [RegularExpression(@"^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\0-9\s.]*$", ErrorMessage = "Characters are not allowed.")]
         public string Name { get; set; }
 
-        [Display(Name = "ParentID")]
+        [Display(Name = "Parent")]
         public int? PID { get; set; }
 
         [ForeignKey("PID")]

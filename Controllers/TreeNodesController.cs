@@ -41,6 +41,13 @@ namespace ZadanieRekrutacyjneIdeo.Controllers
             return View(await _treeNodesRepository.GetAllNodes());
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> IndexSort()
+        {
+            List<TreeNode> result = await _treeNodesRepository.GetAllSortedByName();
+            return View(nameof(Index), result);
+        }
+
         /// <summary>
         /// This method is responsible for display details view with children and parent node 
         /// </summary>

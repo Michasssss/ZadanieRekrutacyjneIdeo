@@ -9,6 +9,7 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
     public interface ITreeNodesRepository
     {
         Task<List<TreeNode>> GetAllNodes();
+        Task<List<TreeNode>> GetAllSortedByName();
         Task<List<TreeNode>> GetNodesWithout(int? id);
         Task<List<TreeNode>> GetChildren(int Id);
         Task GetAllChildrens(int Id, List<TreeNode> nodes);
