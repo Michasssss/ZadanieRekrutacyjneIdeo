@@ -34,14 +34,49 @@ namespace ZadanieRekrutacyjneIdeo
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+                 .AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddControllersWithViews().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
 
             services.AddScoped<ITreeNodesRepository, TreeNodesRepository>();
         }
 
+        /// <summary>
+        /// Creates administrator account and role Admin
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var _roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var _userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            IdentityResult result;
+            var roleExist = await _roleManager.RoleExistsAsync("Admin");
+            if (!roleExist)
+            {
+                result = await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            var user = await _userManager.FindByEmailAsync("admin@xyz.com");
+            if (user == null)
+            {
+                var adminuser = new IdentityUser
+                {
+                    UserName = "admin@xyz.com",
+                    Email = "admin@xyz.com",
+                };
+                adminuser.EmailConfirmed = true;
+
+                var createUser = await _userManager.CreateAsync(adminuser, "zaq1@WSX");
+                if (createUser.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(adminuser, "Admin");
+                }
+            }
+
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +96,8 @@ namespace ZadanieRekrutacyjneIdeo
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            CreateRoles(serviceProvider).GetAwaiter().GetResult();
 
             app.UseEndpoints(endpoints =>
             {

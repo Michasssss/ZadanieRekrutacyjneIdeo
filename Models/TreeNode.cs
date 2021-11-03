@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ZadanieRekrutacyjneIdeo.Models
 {
+    /// <summary>
+    /// Class representing the node in tree
+    /// </summary>
     public class TreeNode
     {
         [Key]
@@ -14,6 +17,8 @@ namespace ZadanieRekrutacyjneIdeo.Models
         public int ID { get; set; }
 
         [Display(Name = "Name")]
+        [StringLength(30)]
+        [RegularExpression(@"^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\0-9\s.]*$", ErrorMessage = "Characters are not allowed.")]
         public string Name { get; set; }
 
         [Display(Name = "ParentID")]

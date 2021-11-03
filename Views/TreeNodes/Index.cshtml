@@ -3,40 +3,78 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="content">
+    <h2>@ViewBag.message </h2>
+    <h1 class="text-center mb-5">Nodes Controller</h1>
 
-<h1>Index</h1>
+    <div class="row justify-content-center">
+        <a class="btn btn-primary mr-4 mb-2" asp-action="Create">Create New</a>
+        <a class="btn btn-danger mr-4 mb-2" asp-action="RemoveAllTreeNodes">Clear database</a>
+        <a class="btn btn-success mr-4 mb-2" asp-action="Create">Load Database</a>
+        <a class="btn btn-info mr-4 mb-2" asp-action="Create">Sort by name</a>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Create New</a>
-    <a class="btn btn-danger" asp-action="RemoveAllTreeNodes">Clear database</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parent)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parent.ID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </div>
+
+        <div class=" mt-5" id="app">
+                <ul style="font-size:20px;">
+                    <item :item="root" />
+                </ul>
+        </div>
+
+    </div>
+    @section Scripts{
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+
+        Vue.component("item", {
+            data() {
+                return {
+                    isOpen: false,
+                    children: this.item.childs.$values
+                }
+            },
+            props: {
+                item: Object,
+            },
+            computed: {
+                isNode: function () {
+                    if (this.children == null) return false
+                    else
+                        return this.children.length > 0;
+                },
+            },
+            methods: {
+                toggle: function () {
+                    if (this.isNode) {
+                        this.isOpen = !this.isOpen;
+                    }
+                },
+            },
+            template: `
+            <li>
+                <div v-on:click="toggle">
+                    <span v-if="isNode">[{{ isOpen ? '-' : '+' }}]</span>
+                    <a :href="'/TreeNodes/Details/'+item.id">{{item.name}}</a>
+                </div>
+                <ul v-show="isOpen" v-if="isNode">
+                    <item v-for="child in children" :key="child.id" :item="child"/>
+                </ul>
+            </li>
+            `
+        });
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                root: Object,
+            },
+            created() {
+                let serialized = '@Html.Raw(Json.Serialize(Model))';
+                this.root = JSON.parse(serialized).$values[0];
+                console.log(this.root);
+            }
+        })
+        </script>
+    }
+

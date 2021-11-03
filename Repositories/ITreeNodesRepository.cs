@@ -9,12 +9,15 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
     public interface ITreeNodesRepository
     {
         Task<List<TreeNode>> GetAllNodes();
-        Task<List<TreeNode>> GetNodesWithout(int? x);
-        Task AddTreeNode(TreeNode node);
+        Task<List<TreeNode>> GetNodesWithout(int? id);
+        Task<List<TreeNode>> GetChildren(int Id);
+        Task GetAllChildrens(int Id, List<TreeNode> nodes);
         Task<TreeNode> GetTreeNodeByIdAsync(int? id);
-        Task EditTreeNode(TreeNode node);
+        Task AddTreeNode(TreeNode node);
         bool TreeNodeExists(int id);
         Task RemoveAllNodes();
         Task RemoveTreeNodeAsync(TreeNode node);
+        Task RemoveWithChildrens(TreeNode node);
+        Task ChangeParent(int idNode, int idNewNode, string name);
     }
 }

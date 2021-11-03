@@ -4,11 +4,14 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 class="text-center mt-4">Edit</h1>
 
-<h4>TreeNode</h4>
 <hr />
+<div>
+    <a class="btn btn-success mr-4 mb-2" asp-action="Index">Back to List</a>
+</div>
 <div class="row">
+    
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -19,21 +22,81 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PID" class="control-label"></label>
-                <select asp-for="PID" class="form-control" asp-items="ViewBag.PID"></select>
+                <label asp-for="Parent" class="control-label"></label>
+                <select asp-for="Parent" class="form-control" asp-items="ViewBag.PID"></select>
                 <span asp-validation-for="PID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Change" class="btn btn-primary" />
             </div>
         </form>
     </div>
+    <div class="col-md-8">
+        <div class=" mt-5" id="app">
+            <ul style="font-size:20px;">
+                <item :item="root" />
+            </ul>
+        </div>
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+
+        Vue.component("item", {
+            data() {
+                return {
+                    isOpen: false,
+                    children: this.item.childs.$values
+                }
+            },
+            props: {
+                item: Object,
+            },
+            computed: {
+                isNode: function () {
+                    if (this.children == null) return false
+                    else
+                        return this.children.length > 0;
+                },
+            },
+            methods: {
+                toggle: function () {
+                    if (this.isNode) {
+                        this.isOpen = !this.isOpen;
+                    }
+                },
+            },
+            template: `
+            <li>
+                <div v-on:click="toggle">
+                    <span v-if="isNode">[{{ isOpen ? '-' : '+' }}]</span>
+                   {{item.name}}
+                </div>
+                <ul v-show="isOpen" v-if="isNode">
+                    <item v-for="child in children" :key="child.id" :item="child"/>
+                </ul>
+            </li>
+            `
+        });
+
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                root: Object,
+            },
+            created() {
+                let serialized = '@Html.Raw(Json.Serialize(ViewBag.Nodes))';
+                this.root = JSON.parse(serialized).$values[0];
+                console.log(this.root);
+            }
+        })
+    </script>
 }
+

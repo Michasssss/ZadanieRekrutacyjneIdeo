@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t2GDeOaBEV4Vg4FqIJkH8ohuoEwFmikj9/7Pb4dNXEgu+avVxNxZbsPqns51eV7mmeUvGlGyob0Sv4DovASOkg==",
+  "dgSpecHash": "08hNXl6gFn3rk17pFEbD8vvnTuhxgBD+y1URrM2sYIKlX7e7UyN6tjaq5PEdCDl/1FLNR2LFvK/bi501Trav4A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Michal\\Desktop\\Visual\\Praktyki\\ZadanieRekrutacyjneIdeo\\ZadanieRekrutacyjneIdeo\\ZadanieRekrutacyjneIdeo.csproj",
   "expectedPackageFiles": [
@@ -62,7 +62,7 @@
     "C:\\Users\\Michal\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\5.0.2\\microsoft.visualstudio.web.codegenerators.mvc.5.0.2.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Michal\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Michal\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
