@@ -134,26 +134,35 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
         public async Task ChangeParent(int idNode, int idNewNode, string name)
         {
             TreeNode node = await GetTreeNodeByIdAsync(idNode);
-            if(node.PID != null)
+            if (node.PID != null)
             {
-            List<TreeNode> childrens = await GetChildren(idNode);
-            var allChildrens = new List<TreeNode>();
-            await GetAllChildrens(idNode, allChildrens);
-            foreach(var item in allChildrens)
-            {
-                if (item.ID == idNewNode)
+                List<TreeNode> childrens = await GetChildren(idNode);
+                var allChildrens = new List<TreeNode>();
+                await GetAllChildrens(idNode, allChildrens);
+                foreach (var item in allChildrens)
                 {
-                    foreach(var x in childrens)
+                    if (item.ID == idNewNode)
                     {
-                        x.PID = node.PID;
+                        foreach (var x in childrens)
+                        {
+                            x.PID = node.PID;
+                        }
                     }
                 }
+                node.PID = idNewNode;
+                node.Name = name;
+                _context.TreeNodes.Update(node);
+                await _context.SaveChangesAsync();
             }
-            node.PID = idNewNode;
-            node.Name = name;
-            _context.TreeNodes.Update(node);
-            await _context.SaveChangesAsync();
-            }
+        }
+
+        /// <summary>
+        /// Removes data and adds new sample data
+        /// </summary>
+        public async Task LoadData()
+        {
+            await _context.Database.ExecuteSqlInterpolatedAsync(
+            $"DBCC CHECKIDENT(TreeNodes, RESEED, 0); SET IDENTITY_INSERT TreeNodes ON; INSERT INTO TreeNodes(Id, Name, PID)VALUES(1, 'root', null),(2, 'Windows', 1),(3, 'Linux', 1),(4, 'MacOS', 1),(5, 'Office', 2),(6, 'InternetExplorer', 2),(7, 'Iceweasel', 3),(8, 'Word', 5),(9, 'Excel', 5),(10, 'PowerPoint', 5);");
         }
     }
 }

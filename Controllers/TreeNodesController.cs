@@ -21,6 +21,16 @@ namespace ZadanieRekrutacyjneIdeo.Controllers
         }
 
         /// <summary>
+        /// Removes the actual data from the database and adds sample data
+        /// </summary>
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> LoadDb()
+        {
+            await _treeNodesRepository.RemoveAllNodes();
+            await _treeNodesRepository.LoadData();
+            return RedirectToAction(nameof(Index));
+        }
+        /// <summary>
         /// This method is responsible for changing the index view
         /// </summary>
         /// <returns>Index View with list all nodes</returns>

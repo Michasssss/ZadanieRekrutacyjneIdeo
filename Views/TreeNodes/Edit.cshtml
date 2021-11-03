@@ -7,10 +7,10 @@
 <h1 class="text-center mt-4">Edit</h1>
 
 <hr />
-<div>
-    <a class="btn btn-success mr-4 mb-2" asp-action="Index">Back to List</a>
-</div>
-<div class="row">
+
+    
+
+<div class="row contentbox">
     
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -28,11 +28,12 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Change" class="btn btn-primary" />
+                <a class="btn btn-success mr-4 mb-2" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
     <div class="col-md-8">
-        <div class=" mt-5" id="app">
+        <div class="tree mt-5" id="app">
             <ul style="font-size:20px;">
                 <item :item="root" />
             </ul>
@@ -75,8 +76,8 @@
             template: `
             <li>
                 <div v-on:click="toggle">
-                    <span v-if="isNode">[{{ isOpen ? '-' : '+' }}]</span>
-                   {{item.name}}
+                    <span class="color-toogle" v-if="isNode">[{{ isOpen ? '-' : '+' }}]</span>
+                   <small>{{item.name}}</small>
                 </div>
                 <ul v-show="isOpen" v-if="isNode">
                     <item v-for="child in children" :key="child.id" :item="child"/>

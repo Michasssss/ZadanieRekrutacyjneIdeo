@@ -7,7 +7,7 @@
 <h1 class="text-center mt-4">Create</h1>
 
 <hr />
-<div class="row">
+<div class="row justify-content-center contentbox">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -18,18 +18,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="PID" class="control-label"></label>
-                <select asp-for="PID" class ="form-control" asp-items="ViewBag.PID"></select>
+                <select asp-for="PID" class="form-control" asp-items="ViewBag.PID"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        <a class="btn btn-success mr-4 mb-2" asp-action="Index">Back to List</a>
+    </div>
+    <div>
+        
     </div>
 </div>
 
-<div>
-    <a class="btn btn-success mr-4 mb-2" asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

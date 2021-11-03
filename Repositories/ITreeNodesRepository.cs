@@ -19,5 +19,6 @@ namespace ZadanieRekrutacyjneIdeo.Repositories
         Task RemoveTreeNodeAsync(TreeNode node);
         Task RemoveWithChildrens(TreeNode node);
         Task ChangeParent(int idNode, int idNewNode, string name);
+        Task LoadData();
     }
 }

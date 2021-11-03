@@ -1,0 +1,35 @@
+﻿.contentbox {
+    background: linear-gradient( 166deg, rgba(255,255,255,0.1), rgba(255,255,255,1));
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    width: 80vh;
+    margin: auto;
+    border-radius: 65px;
+    border: 1px solid rgba(255,255,255,0.19);
+    box-shadow: 0 8px 32px 0 rgb(255 255 255, 40%);
+    margin-top: 66px;
+}
+body {
+    background: linear-gradient( 166deg, #9370dbb0, rgb(255 255 255 / 2%));
+}
+.tree ul  {
+    cursor:pointer;
+}
+.tree ul li a{
+    font-weight:bold;
+    color:#000;
+    text-decoration:none;
+}
+.color-toogle {
+    color: green;
+}
+.tree ul li :hover {
+    color: darkblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+.tree ul li a:hover, .tree ul li small:hover {
+    font-weight: bold;
+    color: #ff0101;
+    text-decoration: none;
+}

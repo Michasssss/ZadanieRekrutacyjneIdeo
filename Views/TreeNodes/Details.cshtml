@@ -3,30 +3,31 @@
 @{
     ViewData["Title"] = "Details";
 }
+<div class="contentbox">
+    <div>
+        <h1 class="text-center"> @Html.DisplayFor(model => model.Name)</h1>
+        <hr />
+        <div class="row mt-3 mb-3 text-center" style="font-size:24px;">
 
-<div>
-    <h1 class="text-center mt-4"> @Html.DisplayFor(model => model.Name)</h1>
-    <hr />
-    <div class="row mt-3 mb-3 text-center" style="font-size:24px;">
+            <div class="col-sm-6 ">
+                <span class="font-weight-bold">@Html.DisplayNameFor(model => model.Parent):</span>
 
-        <div class="col-sm-6 ">
-            <span class="font-weight-bold">@Html.DisplayNameFor(model => model.Parent):</span> 
-
-            <small>@Html.DisplayFor(model => model.Parent.Name)</small>
-        </div>
-        <div class="col-sm-3">
-            <span class="font-weight-bold">
-                @Html.DisplayNameFor(model => model.Childs):
-            </span>
-            @foreach (var item in ViewBag.Children)
-            {
-                <small><p class="ml-5">@item.Name </p></small>
-            }
+                <small>@Html.DisplayFor(model => model.Parent.Name)</small>
+            </div>
+            <div class="col-sm-3">
+                <span class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Childs):
+                </span>
+                @foreach (var item in ViewBag.Children)
+                {
+                    <small><p class="ml-5">@item.Name </p></small>
+                }
+            </div>
         </div>
     </div>
-</div>
-<div class="row justify-content-start mt-5">
-    <a class="btn btn-success mr-3" asp-action="Index">Back to List</a>
-    <a class="btn btn-warning mr-3" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
-    <a class="btn btn-danger mr-3" asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
+    <div class="row justify-content-center mt-5">
+        <a class="btn btn-success mr-3" asp-action="Index">Back to List</a>
+        <a class="btn btn-warning mr-3" asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+        <a class="btn btn-danger mr-3" asp-action="Delete" asp-route-id="@Model.ID">Delete</a>
+    </div>
 </div>
